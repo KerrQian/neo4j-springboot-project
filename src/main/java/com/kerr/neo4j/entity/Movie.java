@@ -1,11 +1,14 @@
 package com.kerr.neo4j.entity;
 
 import lombok.Data;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
-@Node("Movie")
+import java.util.List;
+
+@NodeEntity("Movie")
 @Data
 public class Movie {
 
@@ -14,13 +17,9 @@ public class Movie {
     private Long id;
 
     private String title;
-    private String released;
+    private int released;
     private String tagline;
 
-
-    public Movie(String title, String released, String tagline) {
-        this.title = title;
-        this.released = released;
-        this.tagline = tagline;
-    }
+    @Relationship(type = "ACTED_IN")
+    public List<Role> roles;
 }
